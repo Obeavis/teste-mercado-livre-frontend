@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Routes from "./utils/Routes";
+import { StateProvider, StateConsumer } from "contexts/StateContext";
+import Loader from "components/Loader";
 
 function App() {
   return (
     <div className="App">
-      <header className="bg-orange-600">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <StateProvider>
+        <StateConsumer>
+          {({ state }) => (
+            <>
+              <Routes />
+              {state.loading && <Loader />}
+            </>
+          )}
+        </StateConsumer>
+      </StateProvider>
     </div>
   );
 }
