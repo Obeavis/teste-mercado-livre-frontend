@@ -34,7 +34,7 @@ const Loader = () => (
         cx="50"
         cy="50"
         fill="none"
-        stroke="#121212"
+        stroke="#dcdcdc"
         strokeWidth="8"
         r="35"
         strokeDasharray="164.93361431346415 56.97787143782138"

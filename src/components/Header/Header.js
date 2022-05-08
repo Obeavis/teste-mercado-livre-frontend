@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { StateContext } from "contexts/StateContext";
 import logo from "static/images/logo-mini.png";
@@ -6,7 +6,7 @@ import { ReactComponent as MagnifierIcon } from "static/icons/magnifier.svg";
 import { SearchButton } from "./style";
 
 const Header = () => {
-  const { state, dispatch } = useContext(StateContext);
+  const { dispatch } = useContext(StateContext);
   const navigate = useNavigate();
   const [valueToSearch, setValueToSearch] = useState("");
 
@@ -20,16 +20,16 @@ const Header = () => {
     e.preventDefault();
     if (valueToSearch) {
       dispatch({ type: "LOADING", payload: true });
-      navigate(`/items?search=/${valueToSearch}`);
+      navigate(`/items?search=${valueToSearch}`);
       window.scrollTo(0, 0);
     }
   };
 
   return (
-    <header className="flex fixed items-center justify-center w-full bg-primary top-0 h-16 z-10">
+    <header className="flex fixed items-center justify-center w-full bg-primary top-0 h-16 z-10 px-4 sm:px-0">
       <div className="flex container max-w-5xl">
         <div
-          className="ml-3 sm:ml-0 bg-tertiary rounded-sm px-2 cursor-pointer"
+          className="ml-0 rounded-sm px-2 cursor-pointer"
           onClick={() => gotoMovies()}
         >
           <img src={logo} alt="logo" />
@@ -39,9 +39,16 @@ const Header = () => {
           onSubmit={(e) => search(e)}
         >
           <input
-            className="py-1 pl-3 block w-full appearance-none leading-normal border-2 border-transparent focus:outline-none focus:border-tertiary text-left select-none truncate bg-white shadow-md"
+            className="block sm:hidden py-1 pl-3 w-full appearance-none leading-normal border-2 border-transparent focus:outline-none focus:border-tertiary text-left select-none truncate bg-white shadow-md"
+            placeholder="Estou buscando..."
+            onChange={({ target }) => setValueToSearch(target.value)}
+            maxLength="50"
+          />
+          <input
+            className="hidden sm:block py-1 pl-3  w-full appearance-none leading-normal border-2 border-transparent focus:outline-none focus:border-tertiary text-left select-none truncate bg-white shadow-md"
             placeholder="Buscar produtos, marcas e muito mais…"
             onChange={({ target }) => setValueToSearch(target.value)}
+            maxLength="50"
           />
           <SearchButton
             className="cursor-pointer absolute inset-y-0 right-0 px-4 flex items-center"
